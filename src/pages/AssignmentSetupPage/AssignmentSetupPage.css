@@ -1,0 +1,110 @@
+.stepper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.outer-circle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 3px solid #ddd;
+  /* Outer circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.outer-circle.active {
+  border-color: #007bff;
+  /* Blue outline for active step */
+}
+
+.circle {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #ddd;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.circle.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.line {
+  flex-grow: 1;
+  height: 4px;
+  background-color: #ddd;
+  margin: 0 5px;
+}
+
+.outer-circle.active+.line {
+  background-color: #007bff;
+}
+
+.radio-group {
+  display: flex;
+  gap: 10px;
+}
+
+.radio-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.radio-btn input {
+  display: none;
+}
+
+.radio-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.radio-icon::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: transparent;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.radio-btn.checked {
+  border-color: #d63384;
+  background: #fce4ec;
+}
+
+.radio-btn.checked .radio-icon {
+  border-color: #d63384;
+}
+
+.radio-btn.checked .radio-icon::before {
+  background: #d63384;
+}
