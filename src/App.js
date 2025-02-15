@@ -4,6 +4,7 @@ import { Container } from 'react-bootstrap';
 import TopMenu from './components/TopMenu/TopMenu';
 import HomePage from './pages/HomePage/HomePage';
 import AssignmentSetupPage from './pages/AssignmentSetupPage/AssignmentSetupPage';
+import QuestionPage from './pages/QuestionPage/QuestionPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/assignment-steps" element={<AssignmentSetupPage />} />
+          <Route path="/practice-test" element={<QuestionPage />} />
         </Routes>
       </Container>
     </Router>

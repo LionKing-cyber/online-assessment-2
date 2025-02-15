@@ -5,11 +5,12 @@ import { Container, Card, Button } from "react-bootstrap";
 import Step1 from "../../components/AssignmentSetupPageSteps/Step1";
 import Step2 from "../../components/AssignmentSetupPageSteps/Step2";
 import Step3 from "../../components/AssignmentSetupPageSteps/Step3";
+import Step4 from "../../components/AssignmentSetupPageSteps/Step4";
 
 const AssignmentSetupPage = () => {
     const [step, setStep] = useState(1);
 
-    const nextStep = () => setStep((prev) => Math.min(prev + 1, 3));
+    const nextStep = () => setStep((prev) => Math.min(prev + 1, 4));
     const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
 
     return (
@@ -19,11 +20,12 @@ const AssignmentSetupPage = () => {
                     {step === 1 && <Step1 />}
                     {step === 2 && <Step2 />}
                     {step === 3 && <Step3 />}
+                    {step === 4 && <Step4 testType="Practice Solving" />}
 
                     {/* Button Container Logic */}
                     <div className={`d-flex mt-4 ${step === 1 ? "justify-content-end" : "justify-content-between"}`}>
                         {step > 1 && <Button variant="secondary" onClick={prevStep}>Back</Button>}
-                        {step < 3 && <Button className="theme-button d-flex align-items-center px-4" variant="primary" onClick={nextStep}>
+                        {step <= 3 && <Button className="theme-button d-flex align-items-center px-4" variant="primary" onClick={nextStep}>
                             Continue<FaChevronRight className="ms-2" style={{ fontSize: "0.8rem" }} />
                         </Button>}
                     </div>
