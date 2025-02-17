@@ -1,0 +1,18 @@
+.rating-btn {
+    background-color: white;
+    border-color: #7a7a7a;
+    color: #000;
+    font-weight: bold;
+}
+
+.rating-btn:hover,
+.rating-btn:focus,
+.rating-btn:active {
+    background-color: #f1f1f1;
+    color: #000;
+}
+
+.rating-btn.active {
+    background-color: #d63384;
+    color: #fff;
+}

@@ -24,7 +24,7 @@ const AssignmentSetupPage = () => {
 
                     {/* Button Container Logic */}
                     <div className={`d-flex mt-4 ${step === 1 ? "justify-content-end" : "justify-content-between"}`}>
-                        {step > 1 && <Button variant="secondary" onClick={prevStep}>Back</Button>}
+                        {step > 1 && step != 4 && <Button className="theme-button" variant="secondary" onClick={prevStep}>Back</Button>}
                         {step <= 3 && <Button className="theme-button d-flex align-items-center px-4" variant="primary" onClick={nextStep}>
                             Continue<FaChevronRight className="ms-2" style={{ fontSize: "0.8rem" }} />
                         </Button>}

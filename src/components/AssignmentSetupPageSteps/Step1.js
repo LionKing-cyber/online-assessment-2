@@ -42,7 +42,7 @@ const Step1 = () => (
         </div>
 
         <Row>
-            <Col md={6} className="d-flex align-items-stretch">
+            <Col md={6} className="d-flex align-items-stretch mb-3">
                 <Card className="w-100 h-100" style={{ width: "100%", background: "#bedbf4", border: "1px solid #5f92ee" }}>
                     <Card.Body>
                         <p>Learn how to navigate your assessment:</p>
@@ -54,7 +54,7 @@ const Step1 = () => (
                     </Card.Body>
                 </Card>
             </Col>
-            <Col md={6} className="d-flex align-items-stretch">
+            <Col md={6} className="d-flex align-items-stretch mb-3">
                 <Card className="w-100 h-100" style={{ width: "100%", background: "#bedbf4", border: "1px solid #5f92ee" }}>
                     <Card.Body>
                         <p>Learn how to navigate your assessment:</p>

@@ -80,8 +80,8 @@ const QuestionDisplay = ({ mode, question, onNext }) => {
                             <>
                                 <video ref={videoRef} width="100%" autoPlay muted></video>
                                 <div className="mt-2">
-                                    <Button onClick={startRecording} disabled={recording}>Start Recording</Button>
-                                    <Button onClick={stopRecording} disabled={!recording} className="ms-2">Stop Recording</Button>
+                                    <Button className="theme-button" onClick={startRecording} disabled={recording}>Start Recording</Button>
+                                    <Button className="theme-button ms-2" onClick={stopRecording} disabled={!recording}>Stop Recording</Button>
                                 </div>
                             </>
                         ) : (
@@ -95,7 +95,7 @@ const QuestionDisplay = ({ mode, question, onNext }) => {
                     )}
                 </Col>
             </Row>
-            <Button className="mt-3" onClick={onNext}>Next</Button>
+            <Button className="mt-3 theme-button" onClick={onNext}>Next</Button>
         </Container>
     );
 };

@@ -5,7 +5,7 @@ import './HomePage.css'
 function HomePage() {
   return (
     <Container className="mt-5">
-      <Row className="justify-content-center">
+      <Row className="justify-content-center row-reverse-mobile">
         <Col md={8} className="px-3">
           <div className="p-4 bg-white shadow rounded">
             <h2 className="fw-bold mb-4">Lead Business Development at redhand</h2>
