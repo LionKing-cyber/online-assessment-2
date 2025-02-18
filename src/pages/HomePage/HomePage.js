@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import './HomePage.css'
+import './HomePage.css';
+import { useNavigate } from "react-router-dom";
+import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
+
 
 function HomePage() {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleNext = () => {
+    setLoading(true);
+    setTimeout(() => {
+      navigate("/assignment-steps");
+    }, 1000); // Show loading for 1 second before redirecting
+  };
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <Container className="mt-5">
       <Row className="justify-content-center row-reverse-mobile">
@@ -107,7 +124,7 @@ function HomePage() {
               </Form.Floating>
               <Form.Check type="checkbox" label="I have read and accepted the privacy policy and terms." />
               <Form.Check type="checkbox" label="I agree to receive marketing emails." className="mb-3" />
-              <Button href="/assignment-steps" variant="primary" className="w-100 theme-button">Let's go</Button>
+              <Button onClick={handleNext} variant="primary" className="w-100 theme-button">Let's go</Button>
             </Form>
             <p className="text-center mt-3">10,000+ companies hire with TestGorilla</p>
           </div>

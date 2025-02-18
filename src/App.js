@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import TopMenu from './components/TopMenu/TopMenu';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
+import QuizCompleted from './pages/QuizCompleted/QuizCompleted';
 
 // Lazy-loaded pages
 const HomePage = React.lazy(() => import('./pages/HomePage/HomePage'));
@@ -21,6 +22,7 @@ function App() {
             <Route path="/assignment-steps" element={<AssignmentSetupPage />} />
             <Route path="/practice-test" element={<QuestionPage />} />
             <Route path="/feedback" element={<FeedbackPage />} />
+            <Route path="/completed" element={<QuizCompleted />} />
           </Routes>
         </Suspense>
       </Container>

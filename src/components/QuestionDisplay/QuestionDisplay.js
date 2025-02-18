@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { Card, Col, Container, Row, Button, Form } from "react-bootstrap";
 import { FaExclamationTriangle } from 'react-icons/fa';
 import parse from "html-react-parser";
+import styles from './QuestionDisplay.css';
 
-const QuestionDisplay = ({ mode, question, onNext }) => {
+const QuestionDisplay = ({ mode, question, onNext, onBack, showBackButton }) => {
     const videoRef = useRef(null);
     const mediaRecorderRef = useRef(null);
     const [cameraAccessible, setCameraAccessible] = useState(false);
@@ -51,13 +52,23 @@ const QuestionDisplay = ({ mode, question, onNext }) => {
                 </Col>
                 <Col md={6}>
                     {question.type === "text" && (
-                        <Form.Control type="text" placeholder="Enter your answer" value={answer} onChange={handleChange} />
+                        <Form.Control
+                            type="text"
+                            placeholder="Enter your answer"
+                            value={answer}
+                            onChange={handleChange}
+                        />
                     )}
                     {question.type === "mcq" && (
                         <Form>
                             {question.options?.map((option, index) => (
                                 <label key={index} className={`radio-btn ${answer === option ? "checked" : ""} mb-2`}>
-                                    <input type="radio" value={option} checked={answer === option} onChange={handleChange} />
+                                    <input
+                                        type="radio"
+                                        value={option}
+                                        checked={answer === option}
+                                        onChange={handleChange}
+                                    />
                                     <span className="radio-icon"></span>
                                     {option}
                                 </label>
@@ -68,7 +79,12 @@ const QuestionDisplay = ({ mode, question, onNext }) => {
                         <Form>
                             {question.options?.map((option, index) => (
                                 <label key={index} className={`checkbox-btn ${answer.includes(option) ? "checked" : ""} mb-2`}>
-                                    <input type="checkbox" value={option} checked={answer.includes(option)} onChange={handleChange} />
+                                    <input
+                                        type="checkbox"
+                                        value={option}
+                                        checked={answer.includes(option)}
+                                        onChange={handleChange}
+                                    />
                                     <span className="checkbox-icon"></span>
                                     {option}
                                 </label>
@@ -80,8 +96,12 @@ const QuestionDisplay = ({ mode, question, onNext }) => {
                             <>
                                 <video ref={videoRef} width="100%" autoPlay muted></video>
                                 <div className="mt-2">
-                                    <Button className="theme-button" onClick={startRecording} disabled={recording}>Start Recording</Button>
-                                    <Button className="theme-button ms-2" onClick={stopRecording} disabled={!recording}>Stop Recording</Button>
+                                    <Button className="theme-button" onClick={startRecording} disabled={recording}>
+                                        Start Recording
+                                    </Button>
+                                    <Button className="theme-button ms-2" onClick={stopRecording} disabled={!recording}>
+                                        Stop Recording
+                                    </Button>
                                 </div>
                             </>
                         ) : (
@@ -95,7 +115,18 @@ const QuestionDisplay = ({ mode, question, onNext }) => {
                     )}
                 </Col>
             </Row>
-            <Button className="mt-3 theme-button" onClick={onNext}>Next</Button>
+
+            {/* Back and Next Buttons */}
+            <div className="d-flex justify-content-between mt-4">
+                {showBackButton && (
+                    <Button className="theme-button" onClick={onBack}>
+                        Back
+                    </Button>
+                )}
+                <Button className="theme-button" onClick={onNext}>
+                    Next
+                </Button>
+            </div>
         </Container>
     );
 };

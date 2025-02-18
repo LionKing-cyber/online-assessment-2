@@ -3,19 +3,32 @@ import styles from './FeedbackPage.css';
 import { Container, Card, Button, ButtonGroup, Form } from "react-bootstrap";
 import { FaChevronRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 
 const FeedbackPage = () => {
     const [rating, setRating] = useState(null);
     const [comments, setComments] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const nextStep = () => navigate('/');
+
+    const handleSubmit = () => {
+        setLoading(true);
+        setTimeout(() => {
+            // Simulate feedback submission process
+            navigate('/completed');
+        }, 1000); // Show loading for 1 second
+    };
+
+    if (loading) {
+        return <LoadingScreen />;
+    }
 
     return (
         <Container className="mt-5 d-flex justify-content-center">
             <Card style={{ width: "100%", background: "#fff", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}>
                 <Card.Body>
                     <Container>
-                        <h3>You have finished teh test. We'd like to know what you think about the test you just completed,
+                        <h3>You have finished the test. We'd like to know what you think about the test you just completed,
                             regardless of how you think you did.
                         </h3>
                         <hr />
@@ -39,7 +52,7 @@ const FeedbackPage = () => {
                         </ButtonGroup>
                         <hr />
 
-                        <p>What can we do, if anything, to improvet he test? (optional)</p>
+                        <p>What can we do, if anything, to improve the test? (optional)</p>
 
                         <Form>
                             <Form.Group controlId="feedbackTextarea" className="mb-3">
@@ -55,7 +68,11 @@ const FeedbackPage = () => {
                         </Form>
 
                         <div className="d-flex justify-content-end">
-                            <Button className="theme-button d-flex align-items-center px-4" variant="primary" onClick={nextStep}>
+                            <Button
+                                className="theme-button d-flex align-items-center px-4"
+                                variant="primary"
+                                onClick={handleSubmit}
+                            >
                                 Submit<FaChevronRight className="ms-2" style={{ fontSize: "0.8rem" }} />
                             </Button>
                         </div>
