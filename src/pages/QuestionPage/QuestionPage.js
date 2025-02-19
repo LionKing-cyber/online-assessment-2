@@ -21,6 +21,17 @@ const QuestionPage = () => {
     const [loading, setLoading] = useState(false);
     const [step4, setStep4] = useState(false);
     const navigate = useNavigate();
+    const [answers, setAnswers] = useState(() => {
+        const savedAnswers = localStorage.getItem("testAnswers");
+        return savedAnswers ? JSON.parse(savedAnswers) : {};
+    });
+    
+    const handleAnswerChange = (questionId, answer) => {
+        const updatedAnswers = { ...answers, [questionId]: answer };
+        setAnswers(updatedAnswers);
+        localStorage.setItem("testAnswers", JSON.stringify(updatedAnswers));
+    };
+    
 
     const questions = mode === "practice" ? practiceQuestions : realQuestions;
 
@@ -75,6 +86,8 @@ const QuestionPage = () => {
                             question={questions[currentIndex]}
                             onNext={handleNextQuestion}
                             onBack={handleBackQuestion}
+                            onAnswerChange={handleAnswerChange}
+                            userAnswers={answers}
                             showBackButton={currentIndex > 0}
                         />
                     ) : (

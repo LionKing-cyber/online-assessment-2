@@ -4,43 +4,27 @@ import { FaExclamationTriangle } from 'react-icons/fa';
 import parse from "html-react-parser";
 import styles from './QuestionDisplay.css';
 
-const QuestionDisplay = ({ mode, question, onNext, onBack, showBackButton }) => {
+const QuestionDisplay = ({ mode, question, onNext, onBack, onAnswerChange, userAnswers, showBackButton }) => {
     const videoRef = useRef(null);
     const mediaRecorderRef = useRef(null);
     const [cameraAccessible, setCameraAccessible] = useState(false);
     const [recording, setRecording] = useState(false);
-    const [answer, setAnswer] = useState([]);
-    const [errorMsg, setErrorMsg] = useState("");
+    const [answer, setAnswer] = useState(userAnswers[question.id] || ""); // Load saved answer
 
     useEffect(() => {
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then((userStream) => {
-                if (videoRef.current) videoRef.current.srcObject = userStream;
-                setCameraAccessible(true);
-            })
-            .catch(() => setErrorMsg("Camera access error."));
-    }, []);
+        setAnswer(userAnswers[question.id] || ""); // Reset answer when question changes
+    }, [question.id, userAnswers]);
 
     const handleChange = (e) => {
         const { value, checked, type } = e.target;
+        let updatedAnswer;
         if (type === 'checkbox') {
-            setAnswer((prev) => checked ? [...prev, value] : prev.filter(item => item !== value));
+            updatedAnswer = checked ? [...answer, value] : answer.filter(item => item !== value);
         } else {
-            setAnswer(value);
+            updatedAnswer = value;
         }
-    };
-
-    const startRecording = () => {
-        if (videoRef.current?.srcObject) {
-            mediaRecorderRef.current = new MediaRecorder(videoRef.current.srcObject);
-            mediaRecorderRef.current.start();
-            setRecording(true);
-        }
-    };
-
-    const stopRecording = () => {
-        mediaRecorderRef.current?.stop();
-        setRecording(false);
+        setAnswer(updatedAnswer);
+        onAnswerChange(question.id, updatedAnswer); // Save answer in parent state
     };
 
     return (
@@ -90,28 +74,6 @@ const QuestionDisplay = ({ mode, question, onNext, onBack, showBackButton }) => 
                                 </label>
                             ))}
                         </Form>
-                    )}
-                    {question.type === "video" && (
-                        cameraAccessible ? (
-                            <>
-                                <video ref={videoRef} width="100%" autoPlay muted></video>
-                                <div className="mt-2">
-                                    <Button className="theme-button" onClick={startRecording} disabled={recording}>
-                                        Start Recording
-                                    </Button>
-                                    <Button className="theme-button ms-2" onClick={stopRecording} disabled={!recording}>
-                                        Stop Recording
-                                    </Button>
-                                </div>
-                            </>
-                        ) : (
-                            <Card style={{ background: "#f4dabe" }}>
-                                <Card.Body>
-                                    <FaExclamationTriangle />
-                                    <p>{errorMsg || "Requesting camera permissions..."}</p>
-                                </Card.Body>
-                            </Card>
-                        )
                     )}
                 </Col>
             </Row>
