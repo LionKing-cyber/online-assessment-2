@@ -10,6 +10,7 @@ const QuestionDisplay = ({ mode, question, onNext, onBack, onAnswerChange, userA
     const [cameraAccessible, setCameraAccessible] = useState(false);
     const [recording, setRecording] = useState(false);
     const [answer, setAnswer] = useState(userAnswers[question.id] || ""); // Load saved answer
+    const [errorMsg, setErrorMsg] = useState("");
 
     useEffect(() => {
         setAnswer(userAnswers[question.id] || ""); // Reset answer when question changes
@@ -25,6 +26,19 @@ const QuestionDisplay = ({ mode, question, onNext, onBack, onAnswerChange, userA
         }
         setAnswer(updatedAnswer);
         onAnswerChange(question.id, updatedAnswer); // Save answer in parent state
+    };
+
+    const startRecording = () => {
+        if (videoRef.current?.srcObject) {
+            mediaRecorderRef.current = new MediaRecorder(videoRef.current.srcObject);
+            mediaRecorderRef.current.start();
+            setRecording(true);
+        }
+    };
+
+    const stopRecording = () => {
+        mediaRecorderRef.current?.stop();
+        setRecording(false);
     };
 
     return (
@@ -75,6 +89,30 @@ const QuestionDisplay = ({ mode, question, onNext, onBack, onAnswerChange, userA
                             ))}
                         </Form>
                     )}
+                    {question.type === "video" && (
+                        cameraAccessible ? (
+                            <>
+                                <video ref={videoRef} width="100%" autoPlay muted></video>
+                                <div className="mt-2">
+                                    <Button className="theme-button" onClick={startRecording} disabled={recording}>
+                                        Start Recording
+                                    </Button>
+                                    <Button className="theme-button ms-2" onClick={stopRecording} disabled={!recording}>
+                                        Stop Recording
+                                    </Button>
+                                </div>
+                            </>
+                        ) : (
+                            <Card style={{ background: "#f4dabe" }}>
+                                <Card.Body>
+                                    <FaExclamationTriangle />
+                                    <p>{errorMsg || "Requesting camera permissions..."}</p>
+                                </Card.Body>
+                            </Card>
+                        )
+                    )}
+
+
                 </Col>
             </Row>
 
@@ -89,7 +127,7 @@ const QuestionDisplay = ({ mode, question, onNext, onBack, onAnswerChange, userA
                     Next
                 </Button>
             </div>
-        </Container>
+        </Container >
     );
 };
 

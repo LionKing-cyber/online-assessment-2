@@ -8,6 +8,7 @@ const Step4 = ({ testType, onTimerComplete }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        localStorage.removeItem("testAnswers");
         if (countdown > 0) {
             const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
             return () => clearTimeout(timer);
@@ -17,7 +18,7 @@ const Step4 = ({ testType, onTimerComplete }) => {
             } else {
                 navigate("/practice-test");
             }
-            
+
         }
     }, [countdown, navigate, onTimerComplete]);
 
