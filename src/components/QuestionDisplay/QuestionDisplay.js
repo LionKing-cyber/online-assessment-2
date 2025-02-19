@@ -9,12 +9,18 @@ const QuestionDisplay = ({ mode, question, onNext, onBack, onAnswerChange, userA
     const mediaRecorderRef = useRef(null);
     const [cameraAccessible, setCameraAccessible] = useState(false);
     const [recording, setRecording] = useState(false);
-    const [answer, setAnswer] = useState(userAnswers[question.id] || ""); // Load saved answer
+    const [answer, setAnswer] = useState(userAnswers[question.id] || "");
     const [errorMsg, setErrorMsg] = useState("");
 
     useEffect(() => {
-        setAnswer(userAnswers[question.id] || ""); // Reset answer when question changes
-    }, [question.id, userAnswers]);
+        setAnswer(userAnswers[question.id] || "");
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then((userStream) => {
+                if (videoRef.current) videoRef.current.srcObject = userStream;
+                setCameraAccessible(true);
+            })
+            .catch(() => setErrorMsg("Camera access error."));
+    }, []);
 
     const handleChange = (e) => {
         const { value, checked, type } = e.target;
@@ -25,7 +31,7 @@ const QuestionDisplay = ({ mode, question, onNext, onBack, onAnswerChange, userA
             updatedAnswer = value;
         }
         setAnswer(updatedAnswer);
-        onAnswerChange(question.id, updatedAnswer); // Save answer in parent state
+        onAnswerChange(question.id, updatedAnswer);
     };
 
     const startRecording = () => {
@@ -111,8 +117,6 @@ const QuestionDisplay = ({ mode, question, onNext, onBack, onAnswerChange, userA
                             </Card>
                         )
                     )}
-
-
                 </Col>
             </Row>
 
@@ -127,7 +131,7 @@ const QuestionDisplay = ({ mode, question, onNext, onBack, onAnswerChange, userA
                     Next
                 </Button>
             </div>
-        </Container >
+        </Container>
     );
 };
 
