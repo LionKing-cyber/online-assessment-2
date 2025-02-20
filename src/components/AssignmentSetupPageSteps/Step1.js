@@ -12,7 +12,7 @@ const Step1 = () => (
             This assessment includes the following steps:
         </p>
 
-        <div className="d-flex justify-content-between align-items-center mb-4">
+        <div className="d-flex mb-4 text-center">
             <div className="stepper">
                 <div className="step">
                     <div className="outer-circle">
@@ -32,7 +32,7 @@ const Step1 = () => (
                     <span>5 minutes</span>
                 </div>
                 <div className="line"></div>
-                <div className="step">
+                <div className="step h-100">
                     <div className="outer-circle">
                         <div className="circle">3</div>
                     </div>
